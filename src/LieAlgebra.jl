@@ -19,4 +19,10 @@ export commutator, bracket, bracket_coefficients
 include("structure_constants.jl")
 export structure_constants
 
+include("adjoint.jl")
+export adjoint_matrix, adjoint_matrices
+
+include("killing.jl")
+export killing_form
+
 end
