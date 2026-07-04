@@ -10,14 +10,6 @@ function test_decompose_su2()
 end
 
 function test_decompose_su2_plus_su2()
-    Sx = kron(px, I2)
-    Sy = kron(py, I2)
-    Sz = kron(pz, I2)
-
-    Tx = kron(I2, px)
-    Ty = kron(I2, py)
-    Tz = kron(I2, pz)
-
     B = MatrixBasis([Sx, Sy, Sz, Tx, Ty, Tz])
 
     rng = MersenneTwister(816)

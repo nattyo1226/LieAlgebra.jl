@@ -6,13 +6,13 @@ end
 
 function gram_matrix(ip::AbstractInnerProduct, basis::MatrixBasis)
     n = length(basis)
-    mat_g = Matrix{promote_type(eltype(basis[1]), ComplexF64)}(undef, n, n)
+    G = Matrix{promote_type(eltype(basis[1]), ComplexF64)}(undef, n, n)
     for i in 1:n
         for j in 1:n
-            mat_g[i, j] = ip(basis[i], basis[j])
+            G[i, j] = ip(basis[i], basis[j])
         end
     end
-    return mat_g
+    return G
 end
 
 function (ip::AbstractInnerProduct)(A::AbstractMatrix, B::AbstractMatrix)

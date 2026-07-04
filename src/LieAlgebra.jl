@@ -32,4 +32,7 @@ export commutant
 include("decomposition.jl")
 export generic_commutant_element, transform_basis, component_basis, decompose
 
+include("orthogonalization.jl")
+export orthogonalize, is_orthonormal
+
 end
