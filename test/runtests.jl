@@ -1,6 +1,10 @@
 using LieAlgebra
 using Test
 
-@testset "LieAlgebra.jl" begin
-    # Write your tests here.
-end
+using LinearAlgebra
+
+px = [0 1; 1 0]
+py = [0 -im; im 0]
+pz = [1 0; 0 -1]
+
+include("matrix_basis.jl")
