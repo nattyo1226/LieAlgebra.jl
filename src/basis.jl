@@ -4,6 +4,12 @@ Base.iterate(B::MatrixBasis, state...) = iterate(B.elements, state...)
 Base.keys(B::MatrixBasis) = Base.OneTo(length(B))
 Base.eachindex(B::MatrixBasis) = Base.OneTo(length(B))
 
+function Base.show(io::IO, B::MatrixBasis)
+    n = length(B)
+    s = matrix_size(B)
+    print(io, "MatrixBasis(dim = $n, matrix_size = $s)")
+end
+
 elements(B::MatrixBasis) = B.elements
 
 matrix_size(B::MatrixBasis) = size(first(B.elements))

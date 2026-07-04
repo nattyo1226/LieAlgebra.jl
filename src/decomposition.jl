@@ -4,6 +4,19 @@ Base.iterate(D::Decomposition, state...) = iterate(D.ideals, state...)
 Base.keys(D::Decomposition) = Base.OneTo(length(D))
 Base.eachindex(D::Decomposition) = Base.OneTo(length(D))
 
+function Base.show(io::IO, D::Decomposition)
+    print(io, "Decomposition($(length(D)) ideals)")
+end
+
+function Base.show(io::IO, ::MIME"text/plain", D::Decomposition)
+    println(io, "[Decomposition]")
+    println(io, "  number of ideals: $(length(D))")
+
+    for (i, ideal) in enumerate(D)
+        println(io, "  ideal $(i): dim = $(length(ideal)), matrix_size = $(matrix_size(ideal))")
+    end
+end
+
 function generic_commutant_element(rng::AbstractRNG, Cs::AbstractVector{<:AbstractMatrix})
     _check_empty(Cs)
     _check_same_square(Cs)
