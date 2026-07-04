@@ -23,6 +23,5 @@ struct MatrixBasis{M<:AbstractMatrix}
 end
 
 struct Decomposition
-    components::Vector{Vector{Int}}
-    transform::Matrix{ComplexF64}
+    ideals::Vector{MatrixBasis}
 end

@@ -30,6 +30,6 @@ include("commutant.jl")
 export commutant
 
 include("decomposition.jl")
-export generic_commutant_element, decompose, transform_basis, transformed_basis, component_basis, component_bases
+export generic_commutant_element, transform_basis, component_basis, decompose
 
 end
