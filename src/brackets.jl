@@ -1,7 +1,11 @@
 commutator(A::AbstractMatrix, B::AbstractMatrix) = A * B - B * A
 
+function lie_bracket(A::AbstractMatrix, B::AbstractMatrix)
+    return -im * commutator(A, B)
+end
+
 function bracket(B::MatrixBasis, i::Integer, j::Integer)
-    return commutator(B[i], B[j])
+    return lie_bracket(B[i], B[j])
 end
 
 function bracket_coefficients(ip::AbstractInnerProduct, B::MatrixBasis, i::Integer, j::Integer)

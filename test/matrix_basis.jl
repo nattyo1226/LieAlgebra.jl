@@ -3,7 +3,7 @@ function test_matrix_basis()
     @test is_independent(B)
 
     @test in_span(B, commutator(px, py))
-    @test bracket_coefficients(B, 1, 2) ≈ [0, 0, 2im]
+    @test bracket_coefficients(B, 1, 2) ≈ [0, 0, 2]
 end
 
 @testset "MatrixBasis" begin

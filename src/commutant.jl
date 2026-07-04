@@ -13,13 +13,50 @@ function commutant_matrix(As::AbstractVector{<:AbstractMatrix})
     return vcat(commutant_constraint.(As)...)
 end
 
-function commutant(As::AbstractVector{<:AbstractMatrix}; atol::Real=1e-10)
+function commutant_complex(As::AbstractVector{<:AbstractMatrix}; atol::Real=1e-10)
     M = commutant_matrix(As)
     ns = nullspace(M; atol=atol)
 
     n = size(first(As), 1)
 
     return [reshape(ns[:, i], (n, n)) for i in axes(ns, 2)]
+end
+
+function hermitian_part(A::AbstractMatrix)
+    return (A + A') / 2
+end
+
+function antihermitian_part_to_hermitian(A::AbstractMatrix)
+    return (A - A') / (2im)
+end
+
+function vec_real(A::AbstractMatrix)
+    a = vec(A)
+    return vcat(real(a), imag(a))
+end
+
+function independent_matrices_real(As::AbstractVector{<:AbstractMatrix}; atol::Real=1e-10)
+    isempty(As) && return Vector{Matrix{ComplexF64}}()
+
+    V = hcat(vec_real.(As)...)
+    F = qr(V, ColumnNorm())
+
+    r = sum(abs.(diag(F.R)) .> atol)
+    inds = F.p[1:r]
+
+    return [Matrix{ComplexF64}(As[i]) for i in inds]
+end
+
+function commutant(As::AbstractVector{<:AbstractMatrix}; atol::Real=1e-10)
+    Cs = commutant_complex(As; atol=atol)
+    Hs = Vector{Matrix{ComplexF64}}()
+
+    for C in Cs
+        push!(Hs, hermitian_part(C))
+        push!(Hs, antihermitian_part_to_hermitian(C))
+    end
+
+    return independent_matrices_real(Hs; atol=atol)
 end
 
 function commutant(ip::AbstractInnerProduct, B::MatrixBasis; atol::Real=1e-10)
