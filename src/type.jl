@@ -21,3 +21,8 @@ struct MatrixBasis{M<:AbstractMatrix}
         new{M}(collect(elements))
     end
 end
+
+struct Decomposition
+    components::Vector{Vector{Int}}
+    transform::Matrix{ComplexF64}
+end

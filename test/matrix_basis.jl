@@ -1,4 +1,6 @@
 function test_matrix_basis()
+    B = MatrixBasis([px, py, pz])
+
     @test rank(B) == 3
     @test is_independent(B)
 

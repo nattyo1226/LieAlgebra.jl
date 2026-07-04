@@ -1,4 +1,5 @@
 function test_commutant()
+    B = MatrixBasis([px, py, pz])
     C = commutant(B)
 
     @test length(C) == 1
