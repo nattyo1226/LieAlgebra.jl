@@ -1,6 +1,8 @@
 Base.length(B::MatrixBasis) = length(B.elements)
 Base.getindex(B::MatrixBasis, i::Integer) = B.elements[i]
 Base.iterate(B::MatrixBasis, state...) = iterate(B.elements, state...)
+Base.keys(B::MatrixBasis) = Base.OneTo(length(B))
+Base.eachindex(B::MatrixBasis) = Base.OneTo(length(B))
 
 elements(B::MatrixBasis) = B.elements
 

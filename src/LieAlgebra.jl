@@ -25,4 +25,7 @@ export adjoint_matrix, adjoint_matrices
 include("killing.jl")
 export killing_form
 
+include("commutant.jl")
+export commutant
+
 end
