@@ -7,6 +7,7 @@ function test_decompose_su2()
     @test length(D.ideals) == 1
     @test length(D[1]) == 3
     @test is_closed(D[1])
+    @test all(ishermitian, D[1])
 end
 
 function test_decompose_su2_plus_su2()
@@ -18,10 +19,11 @@ function test_decompose_su2_plus_su2()
     @test length(D) == 2
     @test sort(length.(D)) == [3, 3]
     @test all(is_closed, D)
+    @test all(all(ishermitian, ideal) for ideal in D)
 
-    for A in D[1]
-        for B in D[2]
-            @test norm(lie_bracket(A, B)) < 1e-10
+    for B1 in D[1]
+        for B2 in D[2]
+            @test norm(lie_bracket(B1, B2)) < 1e-10
         end
     end
 end

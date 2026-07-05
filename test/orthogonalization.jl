@@ -5,6 +5,7 @@ function test_orthogonalization_1()
     @test length(B2) == 3
     @test is_orthonormal(B2)
     @test is_closed(B2)
+    @test all(ishermitian, B2)
 end
 
 function test_orthogonalization_2()
@@ -17,6 +18,7 @@ function test_orthogonalization_2()
     @test length(D2) == 2
     @test all(is_orthonormal, D2)
     @test all(is_closed, D2)
+    @test all(all(ishermitian, ideal) for ideal in D2)
 end
 
 @testset "Orthogonalization" begin

@@ -17,9 +17,22 @@ function Base.show(io::IO, ::MIME"text/plain", D::Decomposition)
     end
 end
 
-function generic_commutant_element(rng::AbstractRNG, Cs::AbstractVector{<:AbstractMatrix})
+function _check_symmetric(A::AbstractMatrix; atol::Real=1e-10)
+    norm(A - transpose(A)) < atol || throw(ArgumentError("Matrix is not symmetric within tolerance $(atol)."))
+    return true
+end
+
+function _check_symmetric(As::AbstractVector{<:AbstractMatrix}; atol::Real=1e-10)
+    for A in As
+        _check_symmetric(A; atol=atol)
+    end
+    return true
+end
+
+function generic_commutant_element(rng::AbstractRNG, Cs::AbstractVector{<:AbstractMatrix{<:Real}})
     _check_empty(Cs)
     _check_same_square(Cs)
+    _check_symmetric(Cs)
 
     X = zero(first(Cs))
 
@@ -27,7 +40,7 @@ function generic_commutant_element(rng::AbstractRNG, Cs::AbstractVector{<:Abstra
         X += randn(rng) * C
     end
 
-    return Hermitian(X)
+    return Symmetric(X)
 end
 
 function generic_commutant_element(Cs::AbstractVector{<:AbstractMatrix})
